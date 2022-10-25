@@ -1,13 +1,21 @@
-import Home from "@pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import "./App.css";
+import "./styles/App.css";
+import Start from "./pages/Start";
+import Game from "./pages/Game";
+import Winner from "./pages/Winner";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-      <p>coucou</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Start />} />
+        <Route path="/game" element={<Game />} />
+        <Route path="/winner" element={<Winner />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
