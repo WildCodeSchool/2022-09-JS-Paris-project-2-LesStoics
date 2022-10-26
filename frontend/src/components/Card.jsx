@@ -1,5 +1,11 @@
 function Card() {
-  return <div>card</div>;
+  return (
+    <div className="cardContainer">
+      <div>Image Container</div>
+      <div>Name Container</div>
+      <div>Stars</div>
+    </div>
+  );
 }
 
 export default Card;

@@ -1,16 +1,26 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Player from "../components/Player";
 import "../styles/App.css";
+import FetchApi from "../API/FetchApi";
 
 function Game() {
+  const [character, setCharacter] = useState([]);
+
+  useEffect(() => {
+    FetchApi().then((data) => {
+      setCharacter(data[19]);
+    });
+  }, []);
+
   return (
     <div>
-      Game page here
-      <button
-        type="button"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        <Link to="/winner">Who winner?</Link>
-      </button>
+      <Player />
+      <div>Versus</div>
+      <div>Fight</div>
+      <Player />
+      <Link to="/winner">Who winner?</Link>
+      <p>{character}</p>
     </div>
   );
 }
