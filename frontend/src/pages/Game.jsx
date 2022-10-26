@@ -18,8 +18,8 @@ function Game() {
   return (
     <div>
       <Player />
-      <div>Versus</div>
-      <div>Fight</div>
+      <div>{character}</div>
+      <div>{enemy}</div>
       <Player />
       <Link to="/winner">Who winner?</Link>
     </div>
