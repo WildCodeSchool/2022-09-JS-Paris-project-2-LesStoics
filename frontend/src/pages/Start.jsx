@@ -1,21 +1,15 @@
 import { Link } from "react-router-dom";
-import "../styles/App.css";
 import FetchApi from "../API/FetchApi";
+import "../styles/App.css";
+import portal from "../assets/portal.svg";
 
 function Start() {
   return (
-    <div>
-      <h1>Welcome to the start page</h1>
-      <button
-        type="button"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        <Link to="/game">Play</Link>
-      </button>
-      <h1>Salut</h1>
-      <button type="button" onClick={FetchApi}>
-        Click me
-      </button>
+    <div className="flex flex-col items-center justify-center h-[100vh]">
+      <h1 className="uppercase absolute top-[42%] left-[43%] z-[1] text-9xl cursor-pointer font">
+        start
+      </h1>
+      <img src={portal} alt="portal" className="w-[30%] animate-spin" />
     </div>
   );
 }
