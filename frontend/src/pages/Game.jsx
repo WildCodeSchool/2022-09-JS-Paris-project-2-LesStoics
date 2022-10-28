@@ -9,6 +9,8 @@ function Game() {
   const { enemy } = useContext(characterContext);
   const { random } = useContext(characterContext);
 
+  
+
   return (
     <div>
       <div className="flex flex-row jusify-between">

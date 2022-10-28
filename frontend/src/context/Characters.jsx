@@ -12,21 +12,7 @@ export function Characters({ children }) {
   let ID1 = Math.floor(Math.random() * (825 + 1) + 1);
   let ID2 = Math.floor(Math.random() * (825 + 1) + 1);
 
-  useEffect(() => {
-    FetchApi(ID1).then((data) => {
-      setCharacter(data);
-    });
-    FetchApi(ID2).then((data) => {
-      setEnemy(data);
-    });
-  }, []);
-
-  const random = () => {
-    ID1 = Math.floor(Math.random() * (825 + 1) + 1);
-    ID2 = Math.floor(Math.random() * (825 + 1) + 1);
-    if (ID1 === ID2) {
-      ID1 = Math.floor(Math.random() * (825 + 1) + 1);
-    }
+  const getRandom = () => {
     FetchApi(ID1).then((data) => {
       setCharacter(data);
     });
@@ -35,8 +21,21 @@ export function Characters({ children }) {
     });
   };
 
+  useEffect(() => {
+    getRandom();
+  }, []);
+
+  const random = () => {
+    ID1 = Math.floor(Math.random() * (825 + 1) + 1);
+    ID2 = Math.floor(Math.random() * (825 + 1) + 1);
+    if (ID1 === ID2) {
+      ID1 = Math.floor(Math.random() * (825 + 1) + 1);
+    }
+    getRandom();
+  };
+
   return (
-    <CharacterContext.Provider value={{ character, enemy, random, ID1 }}>
+    <CharacterContext.Provider value={{ character, enemy, random }}>
       {children}
     </CharacterContext.Provider>
   );
