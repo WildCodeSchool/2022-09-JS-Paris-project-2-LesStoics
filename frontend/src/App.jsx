@@ -9,6 +9,7 @@ import { Characters } from "./context/Characters";
 
 import "./styles/App.css";
 
+
 function App() {
   return (
     <Characters>
