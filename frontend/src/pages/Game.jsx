@@ -2,15 +2,22 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Player from "../components/Player";
 import "../styles/App.css";
+import song from "../assets/rickandmortysong.mp3";
 import characterContext from "../context/Characters";
 
 function Game() {
   const { character } = useContext(characterContext);
   const { enemy } = useContext(characterContext);
   const { random } = useContext(characterContext);
+  const audio = new Audio(song);
+  audio.loop = true;
 
   return (
-    <div>
+    <div
+      onLoad={() => {
+        audio.play();
+      }}
+    >
       <div className="flex flex-row jusify-between">
         {character ? (
           <>
