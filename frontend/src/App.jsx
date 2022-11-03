@@ -7,7 +7,7 @@ import NotFound from "./pages/NotFound";
 import Winner from "./pages/Winner";
 import { Characters } from "./context/Characters";
 
-import "./styles/App.css";
+import "./App.css";
 
 function App() {
   return (

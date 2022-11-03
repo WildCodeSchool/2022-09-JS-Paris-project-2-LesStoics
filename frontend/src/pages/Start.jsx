@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../styles/App.css";
 import portal from "../assets/portal.svg";
 
 function Start() {
