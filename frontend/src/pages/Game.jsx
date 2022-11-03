@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Player from "../components/Player";
-import "../styles/App.css";
-import song from "../assets/rickandmortysong.mp3";
 import characterContext from "../context/Characters";
+
+import song from "../assets/rickandmortysong.mp3";
+import randomImg from "../assets/random.svg";
+import fightImg from "../assets/fight.svg";
+import "../styles/App.css";
 
 function Game() {
   const { character } = useContext(characterContext);
@@ -12,26 +15,43 @@ function Game() {
   const audio = new Audio(song);
   audio.loop = true;
 
+  const randomStat = () => {
+    return Math.floor(Math.random() * (100 + 1) + 1);
+  };
+
+  const playerLife = randomStat();
+  const playerPower = randomStat();
+  const enemyLife = randomStat();
+  const enemyPower = randomStat();
+
   return (
-    <div
-      onLoad={() => {
-        audio.play();
-      }}
-    >
-      <div className="flex flex-row jusify-between">
-        {character ? (
-          <>
-            <Player name={character.name} image={character.image} />
-            <Player name={enemy.name} image={enemy.image} />
-          </>
-        ) : (
-          ""
-        )}
-        <button type="button" onClick={random}>
-          random
-        </button>
-      </div>
-      <Link to="/winner">Who winner?</Link>
+    <div className="flex flex-row justify-around w-full">
+      {character ? (
+        <>
+          <Player
+            name={character.name}
+            image={character.image}
+            heart={playerLife}
+            power={playerPower}
+          />
+          <div className="flex justify-center items-center mx-10">
+            <button type="button" onClick={random}>
+              <img src={randomImg} alt="Random" />
+            </button>
+            <Link to="/winner">
+              <img src={fightImg} alt="Fight" />
+            </Link>
+          </div>
+          <Player
+            name={enemy.name}
+            image={enemy.image}
+            heart={enemyLife}
+            power={enemyPower}
+          />
+        </>
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 }
