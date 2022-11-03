@@ -1,4 +1,4 @@
-@font-face{
+@font-face {
   font-family: "RickMorty";
   src: url("../assets/shlop.ttf") format("truetype");
 }
@@ -14,5 +14,5 @@ html {
 }
 
 h1 {
-  font-family: RickMorty
+  font-family: RickMorty;
 }
