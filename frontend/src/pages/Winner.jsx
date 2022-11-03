@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import "../styles/App.css";
 import characterContext from "../context/Characters";
 import Player from "../components/Player";
 

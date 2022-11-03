@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Game from "./pages/Game";
 import Start from "./pages/Start";
 import NotFound from "./pages/NotFound";
 import Winner from "./pages/Winner";
 import { Characters } from "./context/Characters";
 
-import "./styles/App.css";
+import "./App.css";
 
 function App() {
   return (

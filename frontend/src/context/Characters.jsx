@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from "react";
-import FetchApi from "../API/FetchApi";
+import FetchApi from "../API/fetchApi";
 
 const CharacterContext = createContext();
 

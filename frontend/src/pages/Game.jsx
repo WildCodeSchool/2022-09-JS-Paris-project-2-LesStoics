@@ -6,12 +6,9 @@ import characterContext from "../context/Characters";
 import song from "../assets/rickandmortysong.mp3";
 import randomImg from "../assets/random.svg";
 import fightImg from "../assets/fight.svg";
-import "../styles/App.css";
 
 function Game() {
-  const { character } = useContext(characterContext);
-  const { enemy } = useContext(characterContext);
-  const { random } = useContext(characterContext);
+  const { character, enemy, random } = useContext(characterContext);
   const audio = new Audio(song);
   audio.loop = true;
 

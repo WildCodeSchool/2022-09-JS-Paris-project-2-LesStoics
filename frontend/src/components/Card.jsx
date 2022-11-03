@@ -1,5 +1,5 @@
 function Card() {
-  return null
+  return null;
 }
 
 export default Card;
