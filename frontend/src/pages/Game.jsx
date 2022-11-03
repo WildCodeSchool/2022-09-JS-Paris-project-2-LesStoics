@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Player from "../components/Player";
 import characterContext from "../context/Characters";
-
-// import song from "../assets/rickandmortysong.mp3";
 import randomImg from "../assets/random.svg";
 import fightImg from "../assets/fight.svg";
+
+// import song from "../assets/rickandmortysong.mp3";
 
 function Game() {
   const { character, enemy, random, setWinner } = useContext(characterContext);
