@@ -1,23 +1,14 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import "../styles/App.css";
 import characterContext from "../context/Characters";
-import Player from "../components/Player";
+import WinnerCard from "../components/WinnerCard";
 
 function Winner() {
-  const { character } = useContext(characterContext);
-  const { enemy } = useContext(characterContext);
+  const { winner } = useContext(characterContext);
 
   return (
     <div>
-      {character ? (
-        <>
-          <Player name={character.name} image={character.image} />
-          <Player name={enemy.name} image={enemy.image} />
-        </>
-      ) : (
-        ""
-      )}
+      {winner ? <WinnerCard name={winner.name} image={winner.image} /> : ""}
       <button
         type="button"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

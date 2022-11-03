@@ -1,14 +1,18 @@
+/* eslint-disable no-alert */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-restricted-syntax */
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Player from "../components/Player";
-import "../styles/App.css";
 import characterContext from "../context/Characters";
 
+// import song from "../assets/rickandmortysong.mp3";
+import randomImg from "../assets/random.svg";
+import fightImg from "../assets/fight.svg";
+
 function Game() {
-  const { character } = useContext(characterContext);
-  const { enemy } = useContext(characterContext);
-  const { random } = useContext(characterContext);
+  const { character, enemy, random, setWinner } = useContext(characterContext);
   const mathRandom = (max, min) => {
     const A = Math.floor(Math.random() * (max - min) + 5);
     if (A > 0) {
@@ -48,38 +52,85 @@ function Game() {
     console.log(`PlayerAttack is : ${player1.attack}`);
     console.log(`PlayerDefense is : ${player1.defense}`);
     while (player1.life > 0 && opponent.life > 0) {
+      let spell = parseInt(prompt("Choisir sort 1 2 ou 3"), 10);
+      console.log(player1.life);
+      console.log(opponent.life);
+      let attackAttempt = Math.random();
+      if (spell === 1) {
+        attackAttempt = Math.random();
+        console.log(attackAttempt);
+        if (attackAttempt)
+          opponent.life = attack(
+            opponent.life,
+            player1.attack * 1.5,
+            opponent.defense
+          );
+        else console.log("Failed!");
+      } else if (spell === 2) {
+        attackAttempt = Math.random();
+        if (attackAttempt < 0.5) {
+          console.log(attackAttempt);
+          opponent.life = attack(
+            opponent.life,
+            player1.attack * 2,
+            opponent.defense
+          );
+        } else console.log("Failed!", attackAttempt);
+      } else if (spell === 3) {
+        attackAttempt = Math.random();
+        if (attackAttempt < 0.33) {
+          console.log(attackAttempt);
+          opponent.life = attack(
+            opponent.life,
+            player1.attack * 3,
+            opponent.defense
+          );
+        } else console.log("Failed!", attackAttempt);
+      } else {
+        spell = parseInt(prompt("Choisir sort 1 2 ou 3 svp"), 10);
+      }
       player1.life = attack(player1.life, opponent.attack, player1.defense);
       console.log(`Player HP is : ${player1.life}`);
-      opponent.life = attack(opponent.life, player1.attack, opponent.defense);
       console.log(`Opponent HP is : ${opponent.life}`);
     }
     if (player1.life <= 0) {
+      setWinner(enemy);
       console.log(`${opponent.name} Won !`);
     } else {
+      setWinner(character);
       console.log(`${player1.name} Won !`);
     }
   };
+
   return (
-    <div>
-      <div className="flex flex-row jusify-between">
-        {character ? (
-          <>
-            <Player name={character.name} image={character.image} />
-            <Player name={enemy.name} image={enemy.image} />
-            <button type="button" onClick={fight}>
-              Fight
+    <div className="flex flex-row justify-around w-full">
+      {character ? (
+        <>
+          <Player
+            name={character.name}
+            image={character.image}
+            heart={100}
+            power={attackPlayer}
+          />
+          <div className="flex justify-center items-center mx-10">
+            <button type="button" onClick={random}>
+              <img src={randomImg} alt="Random" />
             </button>
-          </>
-        ) : (
-          ""
-        )}
-        <button type="button" onClick={random}>
-          random
-        </button>
-      </div>
-      <Link to="/winner">Who winner?</Link>
+            <Link to="/winner">
+              <img onClick={fight} src={fightImg} alt="Fight" />
+            </Link>
+          </div>
+          <Player
+            name={enemy.name}
+            image={enemy.image}
+            heart={100}
+            power={attackOpponent}
+          />
+        </>
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 }
-
 export default Game;
