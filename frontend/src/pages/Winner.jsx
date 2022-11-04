@@ -7,14 +7,12 @@ function Winner() {
   const { winner } = useContext(characterContext);
 
   return (
-    <div>
+    <div className="flex justify-center flex-col items-center ">
+      <div className="uppercase text-5xl my-4">winner:</div>
       {winner ? <WinnerCard name={winner.name} image={winner.image} /> : ""}
-      <button
-        type="button"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        <Link to="/">ssssss</Link>
-      </button>
+      <Link to="/">
+        <button type="button" className="replay" aria-label="replay" />
+      </Link>
     </div>
   );
 }

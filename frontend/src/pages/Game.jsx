@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Player from "../components/Player";
 import characterContext from "../context/Characters";
-import randomImg from "../assets/random.svg";
-import fightImg from "../assets/fight.svg";
 
 // import song from "../assets/rickandmortysong.mp3";
 
@@ -107,20 +105,30 @@ function Game() {
       {character ? (
         <>
           <Player
+            player="You"
             name={character.name}
             image={character.image}
             heart={100}
             power={attackPlayer}
           />
           <div className="flex justify-center items-center mx-10">
-            <button type="button" onClick={random}>
-              <img src={randomImg} alt="Random" />
-            </button>
+            <button
+              type="button"
+              className="random"
+              onClick={random}
+              aria-label="random"
+            />
             <Link to="/winner">
-              <img onClick={fight} src={fightImg} alt="Fight" />
+              <button
+                type="button"
+                className="fight"
+                onClick={fight}
+                aria-label="fight"
+              />
             </Link>
           </div>
           <Player
+            player="Enemy"
             name={enemy.name}
             image={enemy.image}
             heart={100}

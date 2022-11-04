@@ -10,6 +10,7 @@ function Start() {
         </h1>
       </Link>
       <img src={portal} alt="portal" className="w-[30%] animate-spin" />
+      <input type="text" />
     </div>
   );
 }
