@@ -10,7 +10,8 @@ import characterContext from "../context/Characters";
 // import song from "../assets/rickandmortysong.mp3";
 
 function Game() {
-  const { character, enemy, random, setWinner } = useContext(characterContext);
+  const { character, enemy, random, setWinner, nickname } =
+    useContext(characterContext);
   const mathRandom = (max, min) => {
     const A = Math.floor(Math.random() * (max - min) + 5);
     if (A > 0) {
@@ -105,7 +106,7 @@ function Game() {
       {character ? (
         <>
           <Player
-            player="You"
+            player={nickname}
             name={character.name}
             image={character.image}
             heart={100}
