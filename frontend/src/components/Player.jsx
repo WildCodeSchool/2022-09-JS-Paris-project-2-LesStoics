@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 
-import heartImg from "../assets/heart.svg";
-import powerImg from "../assets/power.svg";
+import heartImg from "../assets/health.png";
+import powerImg from "../assets/attack.png";
 
-function Player({ name, image, heart, power }) {
+function Player({ name, image, heart, power, player }) {
   return (
     <div>
-      <div className="flex flex-col justify-center items-center backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border border-zinc-800 min-h-[70vh] min-w-[40vh] p-4">
+      <div className="text-center uppercase text-3xl py-2">{player}</div>
+      <div className="flex flex-col justify-center items-center backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border border-zinc-800 min-h-[90vh] max-w-[50vh] max-h-[90vh] min-w-[50vh] p-4">
         <img
           src={image}
           className="rounded-full
