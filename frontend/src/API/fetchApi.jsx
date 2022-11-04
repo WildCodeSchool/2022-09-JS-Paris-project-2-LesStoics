@@ -6,4 +6,3 @@ async function fetchApi(id) {
   return data;
 }
 export default fetchApi;
-// for fix
