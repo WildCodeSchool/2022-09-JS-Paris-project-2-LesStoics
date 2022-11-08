@@ -1,41 +1,63 @@
-import { useContext } from "react";
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import characterContext from "../context/Characters";
 
 import portal from "../assets/portal.svg";
 
 function Start() {
+  const [shake, setShake] = useState(false);
   const { setNickname, nickname } = useContext(characterContext);
 
   const handleChange = (event) => {
     setNickname(event.target.value);
   };
 
+  const callShake = () => {
+    if (nickname.length === 0) {
+      setShake(true);
+      setTimeout(() => setShake(false), 2000);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
-      <Link to="/game">
-        <h1 className="uppercase absolute top-[30%] left-[43%] z-[1] text-9xl cursor-pointer font">
+      <Link to={`${nickname.length === 0 ? "" : "/game"}`}>
+        <h1
+          className={`${
+            shake ? "shake" : ""
+          } uppercase absolute top-[30%] left-[43%] z-[1] text-9xl cursor-pointer`}
+          onClick={callShake}
+        >
           start
         </h1>
       </Link>
       <img src={portal} alt="portal" className="w-[30%] animate-spin" />
-      <div className="mt-10 text-2xl">Your nickname:</div>
-      <label
-        htmlFor="UserEmail"
+      <div
         className={`${
-          nickname === ""
-            ? "bg-red-200 border border-red-50"
-            : "bg-green-50 border border-green-400"
-        }relative w-2/12 mt-2 block overflow-hidden rounded-md border border-gray-200 p-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600`}
+          shake ? "shake" : ""
+        } flex flex-col justify-center items-center text-center w-full`}
       >
-        <input
-          type="email"
-          id="UserEmail"
-          placeholder="Email"
-          onChange={handleChange}
-          className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-        />
-      </label>
+        <div className="mt-10 text-2xl">Your nickname:</div>
+        <label
+          htmlFor="UserEmail"
+          className={`${
+            nickname.length === 0
+              ? "bg-red-200 border border-red-50"
+              : "bg-green-50 border border-green-400"
+          }relative w-2/12 mt-2 block overflow-hidden rounded-md border border-gray-200 p-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600`}
+        >
+          <input
+            type="email"
+            id="UserEmail"
+            placeholder="Email"
+            onChange={handleChange}
+            className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+          />
+        </label>
+      </div>
     </div>
   );
 }
