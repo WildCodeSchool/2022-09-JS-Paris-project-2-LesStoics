@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-restricted-syntax */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import Player from "../components/Player";
 import characterContext from "../context/Characters";
@@ -19,15 +19,18 @@ function Game() {
   const [life, setLife] = useState(100);
   const [enemyLife, setEnemyLife] = useState(100);
   const [history, setHistory] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (enemyLife <= 0) {
+    if (enemyLife < 1) {
       setWinner(character);
+      navigate("/winner");
     }
     if (life <= 0) {
       setWinner(enemy);
+      navigate("/winner");
     }
-  }, enemyLife);
+  }, [enemyLife]);
 
   const mathRandom = (max, min) => {
     const A = Math.floor(Math.random() * (max - min) + 5);
@@ -63,28 +66,61 @@ function Game() {
     return lifePlayer;
   };
 
-  let damageDone = 0;
-  let newLife = 0;
-
   const fight = (multiplier, chance) => {
+    let damageDone = 0;
+    let newLifePlayer = 0;
     const attackAttempt = Math.random();
-    console.log(attackAttempt);
     if (attackAttempt < chance) {
-      newLife = attack(
+      newLifePlayer = attack(
         enemyLife,
         player1.attack * multiplier,
         opponent.defense
       );
-      damageDone = enemyLife - newLife;
+      damageDone = enemyLife - newLifePlayer;
 
-      setEnemyLife(newLife);
+      setEnemyLife(newLifePlayer);
       setHistory((y) => [
         ...y,
         `${nickname} did ${damageDone} damage to Opponent`,
       ]);
-    } else setHistory((y) => [...y, `Echec Critique!`]);
-    if (enemyLife <= 0) {
-      setWinner(character);
+    } else setHistory((y) => [...y, `${nickname} failed his attack!`]);
+  };
+
+  const enemyFight = (multiplier, chance) => {
+    let damageDoneByEnemy = 0;
+    let newLifeEnemy = 0;
+    const attackAttempt = Math.random();
+    const delayedAttack = () => {
+      if (attackAttempt < chance) {
+        newLifeEnemy = attack(
+          life,
+          opponent.attack * multiplier,
+          player1.defense
+        );
+        damageDoneByEnemy = life - newLifeEnemy;
+
+        setLife(newLifeEnemy);
+        setHistory((y) => [
+          ...y,
+          `Enemy did ${damageDoneByEnemy} damage to ${nickname}`,
+        ]);
+      } else setHistory((y) => [...y, `Enemy failed his attack!`]);
+    };
+    setTimeout(delayedAttack, 2000);
+  };
+
+  const turn = (multiplierPlayer, chancePlayer) => {
+    fight(multiplierPlayer, chancePlayer); // Player Turn
+    const choseEnemySpell = Math.random();
+    if (choseEnemySpell < 0.33) {
+      // Make animation of spell 1
+      enemyFight(1, 1); // Set chance and multiplier
+    } else if (choseEnemySpell < 0.66) {
+      // Make animation of spell 2
+      enemyFight(1.5, 0.75);
+    } else {
+      // Make animation of spell 3
+      enemyFight(2, 0.5);
     }
   };
 
@@ -114,17 +150,17 @@ function Game() {
                 <img
                   src={mrMeeseeks}
                   alt="Attack One"
-                  onClick={() => fight(1, 1)}
+                  onClick={() => turn(1, 1)}
                 />
                 <img
                   src={pistoportal}
                   alt="Attack Two"
-                  onClick={() => fight(1.3, 0.8)}
+                  onClick={() => turn(1.3, 0.8)}
                 />
                 <img
                   src={picklerick}
                   alt="Attack Three"
-                  onClick={() => fight(1.6, 0.6)}
+                  onClick={() => turn(1.6, 0.6)}
                 />
               </Link>
               <div className="list h-4  flex flex-reverse">
