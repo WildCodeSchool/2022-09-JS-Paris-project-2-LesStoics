@@ -71,7 +71,7 @@ export function FightUtils({ children }) {
         ]);
       } else setHistory((prev) => [...prev, `Enemy failed his attack!`]);
     };
-    setTimeout(delayedAttack, 2000);
+    if (lifeEnemy > 0) setTimeout(delayedAttack, 2000);
   };
 
   const turn = (multiplierPlayer, chancePlayer) => {
@@ -94,12 +94,15 @@ export function FightUtils({ children }) {
       value={{
         lifePlayer,
         lifeEnemy,
+        setLifePlayer,
+        setLifeEnemy,
         history,
         turn,
         attackPlayer,
         attackEnemy,
         nickname,
         setNickname,
+        setHistory,
       }}
     >
       {children}

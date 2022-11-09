@@ -31,7 +31,7 @@ function Game() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (lifeEnemy < 1) {
+    if (lifeEnemy <= 0) {
       setWinner(character);
       navigate("/winner");
     } else if (lifePlayer <= 0) {

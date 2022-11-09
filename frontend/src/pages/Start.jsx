@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "react-notifications-component";
 import FightContext from "../context/FightUtils";
@@ -9,11 +9,17 @@ import portal from "../assets/portal.svg";
 
 function Start() {
   const [shake, setShake] = useState(false);
-  const { setNickname, nickname } = useContext(FightContext);
-
+  const { setNickname, nickname, setLifeEnemy, setLifePlayer, setHistory } =
+    useContext(FightContext);
   const handleChange = (event) => {
     setNickname(event.target.value);
   };
+
+  useEffect(() => {
+    setLifePlayer(100);
+    setLifeEnemy(100);
+    setHistory([]);
+  }, []);
 
   const callShake = () => {
     if (!nickname) {
@@ -47,6 +53,7 @@ function Start() {
           } uppercase absolute top-[30%] left-[43%] z-[1] text-9xl cursor-pointer`}
           onClick={() => {
             callShake();
+
             if (!shake && !nickname) {
               handleError();
             }
@@ -63,7 +70,7 @@ function Start() {
       >
         <div className="mt-10 text-2xl">Your nickname:</div>
         <label
-          htmlFor="UserEmail"
+          htmlFor="nickname"
           className={`${
             !nickname
               ? "bg-red-200 border border-red-50"
@@ -71,9 +78,9 @@ function Start() {
           }relative w-2/12 mt-2 block overflow-hidden rounded-md border border-gray-200 p-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600`}
         >
           <input
-            type="email"
-            id="UserEmail"
-            placeholder="Email"
+            type="text"
+            id="nickname"
+            placeholder={nickname}
             onChange={handleChange}
             className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
           />
