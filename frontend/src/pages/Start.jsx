@@ -3,33 +3,54 @@
 
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import characterContext from "../context/Characters";
-
+import { Store } from "react-notifications-component";
+import FightContext from "../context/FightUtils";
 import portal from "../assets/portal.svg";
 
 function Start() {
   const [shake, setShake] = useState(false);
-  const { setNickname, nickname } = useContext(characterContext);
+  const { setNickname, nickname } = useContext(FightContext);
 
   const handleChange = (event) => {
     setNickname(event.target.value);
   };
 
   const callShake = () => {
-    if (nickname.length === 0) {
+    if (!nickname) {
       setShake(true);
       setTimeout(() => setShake(false), 2000);
     }
   };
 
+  const handleError = () => {
+    Store.addNotification({
+      title: "Error!",
+      message: "Please enter your nickname !",
+      type: "danger",
+      insert: "bottom",
+      container: "bottom-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 2000,
+        onScreen: true,
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
-      <Link to={`${nickname.length === 0 ? "" : "/game"}`}>
+      <Link to={`${!nickname ? "" : "/game"}`}>
         <h1
           className={`${
             shake ? "shake" : ""
           } uppercase absolute top-[30%] left-[43%] z-[1] text-9xl cursor-pointer`}
-          onClick={callShake}
+          onClick={() => {
+            callShake();
+            if (!shake && !nickname) {
+              handleError();
+            }
+          }}
         >
           start
         </h1>
@@ -44,7 +65,7 @@ function Start() {
         <label
           htmlFor="UserEmail"
           className={`${
-            nickname.length === 0
+            !nickname
               ? "bg-red-200 border border-red-50"
               : "bg-green-50 border border-green-400"
           }relative w-2/12 mt-2 block overflow-hidden rounded-md border border-gray-200 p-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600`}

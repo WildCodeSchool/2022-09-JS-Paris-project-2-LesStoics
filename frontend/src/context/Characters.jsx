@@ -8,8 +8,7 @@ const CharacterContext = createContext();
 export function Characters({ children }) {
   const [character, setCharacter] = useState([]);
   const [enemy, setEnemy] = useState([]);
-  const [winner, setWinner] = useState([]);
-  const [nickname, setNickname] = useState([]);
+  const [winner, setWinner] = useState();
 
   let ID1 = Math.floor(Math.random() * (825 + 1) + 1);
   let ID2 = Math.floor(Math.random() * (825 + 1) + 1);
@@ -44,8 +43,6 @@ export function Characters({ children }) {
         random,
         winner,
         setWinner,
-        nickname,
-        setNickname,
       }}
     >
       {children}

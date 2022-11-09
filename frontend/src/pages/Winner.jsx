@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import characterContext from "../context/Characters";
+import CharactersContext from "../context/Characters";
 import WinnerCard from "../components/WinnerCard";
 
 function Winner() {
-  const { winner } = useContext(characterContext);
+  const { winner } = useContext(CharactersContext);
 
   return (
     <div className="flex justify-center flex-col items-center ">
