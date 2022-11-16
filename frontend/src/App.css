@@ -16,7 +16,7 @@ html {
   animation: spin 5s linear infinite;
 }
 
-h1 {
+.title-font {
   font-family: RickMorty;
 }
 
