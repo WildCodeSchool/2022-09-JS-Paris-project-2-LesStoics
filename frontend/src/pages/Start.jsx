@@ -21,13 +21,6 @@ function Start() {
     setHistory([]);
   }, []);
 
-  const callShake = () => {
-    if (!nickname) {
-      setShake(true);
-      setTimeout(() => setShake(false), 2000);
-    }
-  };
-
   const handleError = () => {
     Store.addNotification({
       title: "Error!",
@@ -44,19 +37,22 @@ function Start() {
     });
   };
 
+  const callShake = () => {
+    if (nickname) return;
+    setShake(true);
+    setTimeout(() => setShake(false), 2000);
+    handleError();
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
       <Link to={`${!nickname ? "" : "/game"}`}>
         <h1
           className={`${
-            shake ? "shake" : ""
+            shake && "shake"
           } uppercase absolute top-[30%] left-[43%] z-[1] text-9xl cursor-pointer`}
           onClick={() => {
             callShake();
-
-            if (!shake && !nickname) {
-              handleError();
-            }
           }}
         >
           start
@@ -82,7 +78,7 @@ function Start() {
             id="nickname"
             placeholder={nickname}
             onChange={handleChange}
-            className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+            className="peer h-8 w-full border-none bg-transparent p-0 placeholder-gray focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
           />
         </label>
       </div>

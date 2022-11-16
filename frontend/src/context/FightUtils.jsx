@@ -46,9 +46,15 @@ export function FightUtils({ children }) {
       setLifeEnemy(lifeEnemyAfterPlayerAttack);
       setHistory((prev) => [
         ...prev,
-        `${nickname} did ${turnDamageDoneToEnemy} damage to Enemy`,
+        `${
+          !nickname ? "You" : nickname
+        } did ${turnDamageDoneToEnemy} damage to Enemy`,
       ]);
-    } else setHistory((prev) => [...prev, `${nickname} failed his attack!`]);
+    } else
+      setHistory((prev) => [
+        ...prev,
+        `${!nickname ? "You" : nickname} failed to attack!`,
+      ]);
   };
 
   const enemyFight = (multiplier, chance) => {
@@ -67,7 +73,9 @@ export function FightUtils({ children }) {
         setLifePlayer(lifePlayerAfterEnemyAttack);
         setHistory((prev) => [
           ...prev,
-          `Enemy did ${turnDamageDoneToPlayer} damage to ${nickname}`,
+          `Enemy did ${turnDamageDoneToPlayer} damage to ${
+            !nickname ? "You" : nickname
+          }`,
         ]);
       } else setHistory((prev) => [...prev, `Enemy failed his attack!`]);
     };
