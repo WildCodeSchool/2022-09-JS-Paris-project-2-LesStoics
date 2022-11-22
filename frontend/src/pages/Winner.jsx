@@ -1,29 +1,18 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import "../styles/App.css";
-import characterContext from "../context/Characters";
-import Player from "../components/Player";
+import CharactersContext from "../context/Characters";
+import WinnerCard from "../components/WinnerCard";
 
 function Winner() {
-  const { character } = useContext(characterContext);
-  const { enemy } = useContext(characterContext);
+  const { winner } = useContext(CharactersContext);
 
   return (
-    <div>
-      {character ? (
-        <>
-          <Player name={character.name} image={character.image} />
-          <Player name={enemy.name} image={enemy.image} />
-        </>
-      ) : (
-        ""
-      )}
-      <button
-        type="button"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        <Link to="/">ssssss</Link>
-      </button>
+    <div className="flex justify-center flex-col items-center ">
+      <div className="uppercase text-5xl my-4">winner:</div>
+      {winner ? <WinnerCard name={winner.name} image={winner.image} /> : ""}
+      <Link to="/">
+        <button type="button" className="replay" aria-label="replay" />
+      </Link>
     </div>
   );
 }
