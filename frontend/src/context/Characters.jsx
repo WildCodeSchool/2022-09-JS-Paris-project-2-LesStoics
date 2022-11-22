@@ -1,25 +1,22 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from "react";
 import FetchApi from "../API/fetchApi";
 
 const CharacterContext = createContext();
 
 export function Characters({ children }) {
-  const [character, setCharacter] = useState([]);
-  const [enemy, setEnemy] = useState([]);
-  const [winner, setWinner] = useState([]);
-  const [nickname, setNickname] = useState([]);
+  const [playerData, setPlayerData] = useState([]);
+  const [enemyData, setEnemyData] = useState([]);
+  const [winner, setWinner] = useState();
 
-  let ID1 = Math.floor(Math.random() * (825 + 1) + 1);
-  let ID2 = Math.floor(Math.random() * (825 + 1) + 1);
+  let id1 = Math.floor(Math.random() * (825 + 1) + 1);
+  let id2 = Math.floor(Math.random() * (825 + 1) + 1);
 
   const getRandom = () => {
-    FetchApi(ID1).then((data) => {
-      setCharacter(data);
+    FetchApi(id1).then((data) => {
+      setPlayerData(data);
     });
-    FetchApi(ID2).then((data) => {
-      setEnemy(data);
+    FetchApi(id2).then((data) => {
+      setEnemyData(data);
     });
   };
 
@@ -28,10 +25,10 @@ export function Characters({ children }) {
   }, []);
 
   const random = () => {
-    ID1 = Math.floor(Math.random() * (825 + 1) + 1);
-    ID2 = Math.floor(Math.random() * (825 + 1) + 1);
-    if (ID1 === ID2) {
-      ID1 = Math.floor(Math.random() * (825 + 1) + 1);
+    id1 = Math.floor(Math.random() * (825 + 1) + 1);
+    id2 = Math.floor(Math.random() * (825 + 1) + 1);
+    if (id1 === id2) {
+      id1 = Math.floor(Math.random() * (825 + 1) + 1);
     }
     getRandom();
   };
@@ -39,13 +36,11 @@ export function Characters({ children }) {
   return (
     <CharacterContext.Provider
       value={{
-        character,
-        enemy,
+        playerData,
+        enemyData,
         random,
         winner,
         setWinner,
-        nickname,
-        setNickname,
       }}
     >
       {children}
