@@ -1,55 +1,63 @@
-/* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable no-restricted-syntax */
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Player from "../components/Player";
 import CharacterContext from "../context/Characters";
 import FightContext from "../context/FightUtils";
+import ImageButton from "../components/ImageButton";
 import picklerick from "../assets/picklerick.png";
-import pistoportal from "../assets/pistoportal.png";
 import snowball from "../assets/snowball.png";
-// import song from "../assets/rickandmortysong.mp3";
+import pistoportal from "../assets/pistoportal.png";
 
 function Game() {
-  const { character, enemy, random, setWinner } = useContext(CharacterContext);
+  const { playerData, enemyData, fetchCharacters, setWinner } =
+    useContext(CharacterContext);
   const {
-    lifePlayer,
-    lifeEnemy,
     history,
     turn,
-    attackEnemy,
-    attackPlayer,
     nickname,
+    player,
+    enemy,
+    setPlayer,
+    setEnemy,
+    mathRandom,
   } = useContext(FightContext);
-  // eslint-disable-next-line no-unused-vars
-  // const [lifePlayer, setlifePlayer] = useState(100);
-  // const [lifeEnemy, setlifeEnemy] = useState(100);
-  // const [history, setHistory] = useState([]);
   const [ready, setReady] = useState(false);
   const navigate = useNavigate();
 
+  const randomChar = () => {
+    setPlayer({
+      ...player,
+      attack: mathRandom(60, 40),
+      defense: mathRandom(40, 20),
+    });
+    setEnemy({
+      ...enemy,
+      attack: mathRandom(30, 20),
+      defense: mathRandom(10, 5),
+    });
+    fetchCharacters();
+  };
   useEffect(() => {
-    if (lifeEnemy <= 0) {
-      setWinner(character);
+    if (enemy.life <= 0) {
+      setWinner(playerData);
       navigate("/winner");
-    } else if (lifePlayer <= 0) {
-      setWinner(enemy);
+    } else if (player.life <= 0) {
+      setWinner(enemyData);
       navigate("/winner");
     }
-  }, [lifePlayer, lifeEnemy]);
+  }, [player.life, enemy.life]);
 
   return (
     <div className="flex flex-row justify-around w-full px-10">
-      {character ? (
+      {playerData ? (
         <>
           <Player
             player={!nickname ? "You" : nickname}
-            name={character.name}
-            image={character.image}
-            heart={lifePlayer}
-            power={attackPlayer}
+            name={playerData.name}
+            image={playerData.image}
+            heart={player.life}
+            power={player.attack}
+            defense={player.defense}
           />
           <div className="w-2/5 flex">
             {!ready ? (
@@ -57,7 +65,7 @@ function Game() {
                 <button
                   type="button"
                   className="random"
-                  onClick={random}
+                  onClick={randomChar}
                   aria-label="random"
                 />
                 <button
@@ -71,27 +79,26 @@ function Game() {
               <div className="flex flex-col w-full">
                 <div className="h-56 mt-5 backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border border-zinc-800">
                   <Link
-                    to={`${lifeEnemy <= 0 ? "/winner" : ""}`}
+                    to={`${enemy.life <= 0 ? "/winner" : ""}`}
                     className="flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full"
                   >
-                    <img
+                    <ImageButton
+                      src={snowball}
+                      alt="Attack One"
+                      onClick={() => turn(1, 1)}
+                    />
+                    <ImageButton
                       src={pistoportal}
                       alt="Attack Two"
                       onClick={() => turn(1.3, 0.8)}
-                      className="pisto w-40"
                     />
-                    <img
+                    <ImageButton
                       src={picklerick}
                       alt="Attack Three"
-                      onClick={() => turn(1.6, 0.6)}
-                      className="pickle w-40"
-                    />
-
-                    <img
-                      src={snowball}
-                      alt="Attack Three"
-                      onClick={() => turn(1.8, 0.8)}
-                      className="snowball w-40"
+                      onClick={() => {
+                        turn(1.6, 0.6);
+                        console.log("salut");
+                      }}
                     />
                   </Link>
                 </div>
@@ -108,10 +115,11 @@ function Game() {
           </div>
           <Player
             player="Enemy"
-            name={enemy.name}
-            image={enemy.image}
-            heart={lifeEnemy}
-            power={attackEnemy}
+            name={enemyData.name}
+            image={enemyData.image}
+            heart={enemy.life}
+            power={enemy.attack}
+            defense={enemy.defense}
           />
         </>
       ) : (
@@ -120,5 +128,4 @@ function Game() {
     </div>
   );
 }
-
 export default Game;

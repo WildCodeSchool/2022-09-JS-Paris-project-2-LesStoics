@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import CrewCard from "../components/CrewCard";
-import audrey from "../assets/photo_crew.png";
+import Audrey from "../assets/photo_crew.png";
 import Victor from "../assets/public.gif";
 import Kevin from "../assets/snowball.png";
 import Magomed from "../assets/picklerick.png";
@@ -10,7 +10,7 @@ import Cedric from "../assets/replay.png";
 const crewMate = [
   {
     name: "Audrey",
-    image: audrey,
+    image: Audrey,
     description: "To infinity and beyond!",
   },
   {
