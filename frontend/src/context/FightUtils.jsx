@@ -8,8 +8,8 @@ export function FightUtils({ children }) {
   const [enemy, setEnemy] = useState({});
   const [player, setPlayer] = useState({});
 
-  const mathRandom = (Range, ValueMin) => {
-    const A = Math.floor(Math.random() * Range + ValueMin);
+  const mathRandom = (range, minValue) => {
+    const A = Math.floor(Math.random() * range + minValue);
     if (A > 0) {
       return A;
     }

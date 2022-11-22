@@ -48,6 +48,13 @@ function Game() {
     }
   }, [player.life, enemy.life]);
 
+  const disableButton = () => {
+    setDisabled(true);
+    setTimeout(() => {
+      setDisabled(false);
+    }, "3000");
+  };
+
   return (
     <div className="flex flex-row justify-around w-full px-10">
       {playerData ? (
@@ -95,10 +102,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1, 1);
-                        setDisabled(true);
-                        setTimeout(() => {
-                          setDisabled(false);
-                        }, "3000");
+                        disableButton();
                       }}
                     />
                     <ImageButton
@@ -108,10 +112,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1.4, 0.8);
-                        setDisabled(true);
-                        setTimeout(() => {
-                          setDisabled(false);
-                        }, "3000");
+                        disableButton();
                       }}
                     />
                     <ImageButton
@@ -121,10 +122,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1.8, 0.6);
-                        setDisabled(true);
-                        setTimeout(() => {
-                          setDisabled(false);
-                        }, "3000");
+                        disableButton();
                       }}
                     />
                   </Link>
