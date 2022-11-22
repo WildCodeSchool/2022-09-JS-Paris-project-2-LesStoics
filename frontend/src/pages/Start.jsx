@@ -47,29 +47,37 @@ function Start() {
 
   return (
     <div>
-      <div>
-        <Link to="/credits">Credits</Link>
-      </div>
-      <div className="flex flex-col items-center justify-center h-[100vh]">
-        <Link to={`${!nickname ? "" : "/game"}`}>
-          <h1
-            className={`${
-              shake && "shake"
-            } uppercase absolute top-[30%] left-[43%] z-[1] text-9xl cursor-pointer`}
-            onClick={() => {
-              callShake();
-            }}
-          >
-            start
-          </h1>
+      <div className="text-right p-5">
+        <Link
+          to="/credits"
+          className="inline-block text-3xl px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-200 hover:border-gray-200 hover:bg-green-800 lg:mt-0 font"
+        >
+          Credits
         </Link>
-        <img src={portal} alt="portal" className="w-[30%] animate-spin" />
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex justify-center relative items-center">
+          <Link to={`${!nickname ? "" : "/game"}`}>
+            <h1
+              className={`${
+                shake && "shake"
+              } uppercase absolute z-[1] text-9xl cursor-pointer left-[30%] top-[33%]`}
+              onClick={() => {
+                callShake();
+              }}
+            >
+              start
+            </h1>
+          </Link>
+          <img src={portal} alt="portal" className="w-[80%] animate-spin" />
+        </div>
+
         <div
           className={`${
             shake ? "shake" : ""
           } flex flex-col justify-center items-center text-center w-full`}
         >
-          <div className="mt-10 text-2xl">Your nickname:</div>
+          <div className="mt-10 text-2xl text-white">Your nickname:</div>
           <label
             htmlFor="nickname"
             className={`${
