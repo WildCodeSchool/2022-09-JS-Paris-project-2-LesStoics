@@ -97,7 +97,6 @@ function Game() {
                       alt="Attack Three"
                       onClick={() => {
                         turn(1.6, 0.6);
-                        console.log("salut");
                       }}
                     />
                   </Link>
