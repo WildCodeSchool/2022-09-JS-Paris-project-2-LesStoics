@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line import/no-unresolved
@@ -10,15 +7,22 @@ import portal from "../assets/portal.svg";
 
 function Start() {
   const [shake, setShake] = useState(false);
-  const { setNickname, nickname, setLifeEnemy, setLifePlayer, setHistory } =
-    useContext(FightContext);
+  const {
+    setNickname,
+    nickname,
+    setPlayer,
+    player,
+    enemy,
+    setEnemy,
+    setHistory,
+  } = useContext(FightContext);
   const handleChange = (event) => {
     setNickname(event.target.value);
   };
 
   useEffect(() => {
-    setLifePlayer(100);
-    setLifeEnemy(100);
+    setPlayer({ ...player, life: 100 });
+    setEnemy({ ...enemy, life: 100 });
     setHistory([]);
   }, []);
 
@@ -58,16 +62,17 @@ function Start() {
       <div className="flex flex-col items-center justify-center">
         <div className="flex justify-center relative items-center">
           <Link to={`${!nickname ? "" : "/game"}`}>
-            <h1
+            <button
+              type="button"
               className={`${
                 shake && "shake"
-              } uppercase absolute z-[1] text-9xl cursor-pointer left-[30%] top-[33%]`}
+              } uppercase absolute z-[1] text-9xl cursor-pointer left-[30%] top-[33%] font`}
               onClick={() => {
                 callShake();
               }}
             >
               start
-            </h1>
+            </button>
           </Link>
           <img src={portal} alt="portal" className="w-[80%] animate-spin" />
         </div>

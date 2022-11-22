@@ -19,10 +19,7 @@ html {
   animation: spin 5s linear infinite;
 }
 
-h1 {
-  font-family: RickMorty;
-}
-
+h1,
 .font {
   font-family: RickMorty;
 }
@@ -315,6 +312,4 @@ h1 {
   }
 }
 
-
 /* credit  */
-

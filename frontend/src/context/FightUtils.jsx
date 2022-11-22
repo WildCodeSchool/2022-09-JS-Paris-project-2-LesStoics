@@ -1,14 +1,12 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const FightContext = createContext();
 
 export function FightUtils({ children }) {
-  const [lifePlayer, setLifePlayer] = useState(100);
-  const [lifeEnemy, setLifeEnemy] = useState(100);
   const [history, setHistory] = useState([]);
   const [nickname, setNickname] = useState();
+  const [enemy, setEnemy] = useState({});
+  const [player, setPlayer] = useState({});
 
   const mathRandom = (max, min) => {
     const A = Math.floor(Math.random() * (max - min) + 5);
@@ -17,11 +15,20 @@ export function FightUtils({ children }) {
     }
     return 0;
   };
-
-  const attackPlayer = mathRandom(60, 40);
-  const attackEnemy = mathRandom(30, 20);
-  const defensePlayer = mathRandom(40, 20);
-  const defenseEnemy = mathRandom(10, 5);
+  useEffect(() => {
+    setPlayer({
+      ...player,
+      life: 100,
+      attack: mathRandom(60, 40),
+      defense: mathRandom(40, 20),
+    });
+    setEnemy({
+      ...enemy,
+      life: 100,
+      attack: mathRandom(30, 20),
+      defense: mathRandom(10, 5),
+    });
+  }, []);
 
   const attack = (receiverLife, casterAttack, receiverDefense) => {
     const damage = Math.floor(
@@ -37,13 +44,13 @@ export function FightUtils({ children }) {
     const attackAttempt = Math.random();
     if (attackAttempt < chance) {
       lifeEnemyAfterPlayerAttack = attack(
-        lifeEnemy,
-        attackPlayer * multiplier,
-        defenseEnemy
+        enemy.life,
+        player.attack * multiplier,
+        enemy.defense
       );
-      turnDamageDoneToEnemy = lifeEnemy - lifeEnemyAfterPlayerAttack;
+      turnDamageDoneToEnemy = enemy.life - lifeEnemyAfterPlayerAttack;
 
-      setLifeEnemy(lifeEnemyAfterPlayerAttack);
+      setEnemy({ ...enemy, life: lifeEnemyAfterPlayerAttack });
       setHistory((prev) => [
         ...prev,
         `${
@@ -64,13 +71,13 @@ export function FightUtils({ children }) {
     const delayedAttack = () => {
       if (attackAttempt < chance) {
         lifePlayerAfterEnemyAttack = attack(
-          lifePlayer,
-          attackEnemy * multiplier,
-          defensePlayer
+          player.life,
+          enemy.attack * multiplier,
+          player.defense
         );
-        turnDamageDoneToPlayer = lifePlayer - lifePlayerAfterEnemyAttack;
+        turnDamageDoneToPlayer = player.life - lifePlayerAfterEnemyAttack;
 
-        setLifePlayer(lifePlayerAfterEnemyAttack);
+        setPlayer({ ...player, life: lifePlayerAfterEnemyAttack });
         setHistory((prev) => [
           ...prev,
           `Enemy did ${turnDamageDoneToPlayer} damage to ${
@@ -79,7 +86,7 @@ export function FightUtils({ children }) {
         ]);
       } else setHistory((prev) => [...prev, `Enemy failed his attack!`]);
     };
-    if (lifeEnemy > 0) setTimeout(delayedAttack, 2000);
+    if (player.life > 0) setTimeout(delayedAttack, 2000);
   };
 
   const turn = (multiplierPlayer, chancePlayer) => {
@@ -100,17 +107,16 @@ export function FightUtils({ children }) {
   return (
     <FightContext.Provider
       value={{
-        lifePlayer,
-        lifeEnemy,
-        setLifePlayer,
-        setLifeEnemy,
         history,
         turn,
-        attackPlayer,
-        attackEnemy,
         nickname,
         setNickname,
         setHistory,
+        player,
+        enemy,
+        setPlayer,
+        setEnemy,
+        mathRandom,
       }}
     >
       {children}
