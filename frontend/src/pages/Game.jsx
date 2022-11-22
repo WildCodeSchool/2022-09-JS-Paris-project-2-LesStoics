@@ -8,9 +8,8 @@ import Player from "../components/Player";
 import CharacterContext from "../context/Characters";
 import FightContext from "../context/FightUtils";
 import picklerick from "../assets/picklerick.png";
-import mrMeeseeks from "../assets/mr_meeseeks.png";
 import pistoportal from "../assets/pistoportal.png";
-
+import snowball from "../assets/snowball.png";
 // import song from "../assets/rickandmortysong.mp3";
 
 function Game() {
@@ -76,22 +75,23 @@ function Game() {
                     className="flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full"
                   >
                     <img
-                      src={mrMeeseeks}
-                      alt="Attack One"
-                      onClick={() => turn(1, 1)}
-                      className="w-40"
-                    />
-                    <img
                       src={pistoportal}
                       alt="Attack Two"
                       onClick={() => turn(1.3, 0.8)}
-                      className="w-40"
+                      className="pisto w-40"
                     />
                     <img
                       src={picklerick}
                       alt="Attack Three"
                       onClick={() => turn(1.6, 0.6)}
-                      className="w-40"
+                      className="pickle w-40"
+                    />
+
+                    <img
+                      src={snowball}
+                      alt="Attack Three"
+                      onClick={() => turn(1.8, 0.8)}
+                      className="snowball w-40"
                     />
                   </Link>
                 </div>
@@ -120,4 +120,5 @@ function Game() {
     </div>
   );
 }
+
 export default Game;
