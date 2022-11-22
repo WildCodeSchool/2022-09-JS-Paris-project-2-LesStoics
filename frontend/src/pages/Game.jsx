@@ -28,13 +28,13 @@ function Game() {
   const randomChar = () => {
     setPlayer({
       ...player,
-      attack: mathRandom(60, 40),
-      defense: mathRandom(40, 20),
+      attack: mathRandom(20, 15),
+      defense: mathRandom(10, 10),
     });
     setEnemy({
       ...enemy,
-      attack: mathRandom(30, 20),
-      defense: mathRandom(10, 5),
+      attack: mathRandom(20, 15),
+      defense: mathRandom(10, 10),
     });
     fetchCharacters();
   };
@@ -100,7 +100,7 @@ function Game() {
                       alt="Attack Two"
                       disabled={disabled}
                       onClick={() => {
-                        turn(1.3, 0.8);
+                        turn(1.4, 0.8);
                         setDisabled(true);
                         setTimeout(() => {
                           setDisabled(false);
@@ -112,7 +112,7 @@ function Game() {
                       alt="Attack Three"
                       disabled={disabled}
                       onClick={() => {
-                        turn(1.6, 0.6);
+                        turn(1.8, 0.6);
                         setDisabled(true);
                         setTimeout(() => {
                           setDisabled(false);
