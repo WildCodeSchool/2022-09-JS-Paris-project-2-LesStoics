@@ -76,7 +76,7 @@ function Start() {
             !nickname
               ? "bg-red-200 border border-red-50"
               : "bg-green-50 border border-green-400"
-          }relative w-2/12 mt-2 block overflow-hidden rounded-md border border-gray-200 p-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600`}
+          } relative w-2/12 mt-2 block overflow-hidden rounded-md border border-gray-200 p-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600`}
         >
           <input
             type="text"
