@@ -9,7 +9,7 @@ import snowball from "../assets/snowball.png";
 import pistoportal from "../assets/pistoportal.png";
 
 function Game() {
-  const { playerData, enemyData, random, setWinner } =
+  const { playerData, enemyData, fetchCharacters, setWinner } =
     useContext(CharacterContext);
   const {
     history,
@@ -35,7 +35,7 @@ function Game() {
       attack: mathRandom(30, 20),
       defense: mathRandom(10, 5),
     });
-    random();
+    fetchCharacters();
   };
   useEffect(() => {
     if (enemy.life <= 0) {
@@ -57,6 +57,7 @@ function Game() {
             image={playerData.image}
             heart={player.life}
             power={player.attack}
+            defense={player.defense}
           />
           <div className="w-2/5 flex">
             {!ready ? (
@@ -94,7 +95,9 @@ function Game() {
                     <ImageButton
                       src={picklerick}
                       alt="Attack Three"
-                      onClick={() => turn(1.6, 0.6)}
+                      onClick={() => {
+                        turn(1.6, 0.6);
+                      }}
                     />
                   </Link>
                 </div>
@@ -115,6 +118,7 @@ function Game() {
             image={enemyData.image}
             heart={enemy.life}
             power={enemy.attack}
+            defense={enemy.defense}
           />
         </>
       ) : (

@@ -4,41 +4,39 @@ import FetchApi from "../API/fetchApi";
 const CharacterContext = createContext();
 
 export function Characters({ children }) {
-  const [playerData, setPlayerData] = useState([]);
-  const [enemyData, setEnemyData] = useState([]);
+  const [playerData, setPlayerData] = useState();
+  const [enemyData, setEnemyData] = useState();
   const [winner, setWinner] = useState();
 
-  let id1 = Math.floor(Math.random() * (825 + 1) + 1);
-  let id2 = Math.floor(Math.random() * (825 + 1) + 1);
+  const getRandomIDs = () => {
+    let playerID = Math.floor(Math.random() * (825 + 1) + 1);
+    const enemyID = Math.floor(Math.random() * (825 + 1) + 1);
+    while (playerID === enemyID) {
+      playerID = Math.floor(Math.random() * (825 + 1) + 1);
+    }
+    return [playerID, enemyID];
+  };
 
-  const getRandom = () => {
-    FetchApi(id1).then((data) => {
+  const fetchCharacters = () => {
+    const [playerID, enemyID] = getRandomIDs();
+    FetchApi(playerID).then((data) => {
       setPlayerData(data);
     });
-    FetchApi(id2).then((data) => {
+    FetchApi(enemyID).then((data) => {
       setEnemyData(data);
     });
   };
 
   useEffect(() => {
-    getRandom();
+    fetchCharacters();
   }, []);
-
-  const random = () => {
-    id1 = Math.floor(Math.random() * (825 + 1) + 1);
-    id2 = Math.floor(Math.random() * (825 + 1) + 1);
-    if (id1 === id2) {
-      id1 = Math.floor(Math.random() * (825 + 1) + 1);
-    }
-    getRandom();
-  };
 
   return (
     <CharacterContext.Provider
       value={{
         playerData,
         enemyData,
-        random,
+        fetchCharacters,
         winner,
         setWinner,
       }}
