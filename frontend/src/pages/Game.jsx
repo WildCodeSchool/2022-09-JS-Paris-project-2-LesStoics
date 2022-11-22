@@ -22,6 +22,7 @@ function Game() {
     mathRandom,
   } = useContext(FightContext);
   const [ready, setReady] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   const randomChar = () => {
@@ -85,18 +86,37 @@ function Game() {
                     <ImageButton
                       src={snowball}
                       alt="Attack One"
-                      onClick={() => turn(1, 1)}
+                      disabled={disabled}
+                      onClick={() => {
+                        turn(1, 1);
+                        setDisabled(true);
+                        setTimeout(() => {
+                          setDisabled(false);
+                        }, "3000");
+                      }}
                     />
                     <ImageButton
                       src={pistoportal}
                       alt="Attack Two"
-                      onClick={() => turn(1.3, 0.8)}
+                      disabled={disabled}
+                      onClick={() => {
+                        turn(1.3, 0.8);
+                        setDisabled(true);
+                        setTimeout(() => {
+                          setDisabled(false);
+                        }, "3000");
+                      }}
                     />
                     <ImageButton
                       src={picklerick}
                       alt="Attack Three"
+                      disabled={disabled}
                       onClick={() => {
                         turn(1.6, 0.6);
+                        setDisabled(true);
+                        setTimeout(() => {
+                          setDisabled(false);
+                        }, "3000");
                       }}
                     />
                   </Link>
