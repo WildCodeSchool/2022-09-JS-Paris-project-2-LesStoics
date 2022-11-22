@@ -4,10 +4,13 @@
 }
 
 html {
-  background-image: url(./assets/background.svg);
+  background-image: url(https://i.ibb.co/xFFd8R1/wallpix.png);
   background-repeat: no-repeat;
+  height: 100vh;
+  background-position: fixed;
+  background-attachment: fixed;
   background-size: cover;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* PAGE START  */
@@ -16,7 +19,8 @@ html {
   animation: spin 5s linear infinite;
 }
 
-h1 {
+h1,
+.font {
   font-family: RickMorty;
 }
 
@@ -100,15 +104,7 @@ h1 {
   background-image: url(./assets/fight_button_click.png);
   cursor: pointer;
 }
-/* 
-.hello {
-  display: block; 
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 3.6em;
-  line-height: 1.8em;
-} */
+
 /* PAGE WINNER  */
 
 .replay {
