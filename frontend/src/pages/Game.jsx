@@ -9,7 +9,7 @@ import snowball from "../assets/snowball.png";
 import pistoportal from "../assets/pistoportal.png";
 
 function Game() {
-  const { playerData, enemyData, random, setWinner } =
+  const { playerData, enemyData, fetchCharacters, setWinner } =
     useContext(CharacterContext);
   const {
     history,
@@ -22,20 +22,21 @@ function Game() {
     mathRandom,
   } = useContext(FightContext);
   const [ready, setReady] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   const randomChar = () => {
     setPlayer({
       ...player,
-      attack: mathRandom(60, 40),
-      defense: mathRandom(40, 20),
+      attack: mathRandom(20, 15),
+      defense: mathRandom(10, 10),
     });
     setEnemy({
       ...enemy,
-      attack: mathRandom(30, 20),
-      defense: mathRandom(10, 5),
+      attack: mathRandom(20, 15),
+      defense: mathRandom(10, 10),
     });
-    random();
+    fetchCharacters();
   };
   useEffect(() => {
     if (enemy.life <= 0) {
@@ -57,6 +58,7 @@ function Game() {
             image={playerData.image}
             heart={player.life}
             power={player.attack}
+            defense={player.defense}
           />
           <div className="w-2/5 flex">
             {!ready ? (
@@ -88,21 +90,42 @@ function Game() {
                   >
                     <ImageButton
                       src={snowball}
-                      alt="Attack One"
-                      onClick={() => turn(1, 1)}
                       className="w-40 snowball"
+                      alt="Attack One"
+                      disabled={disabled}
+                      onClick={() => {
+                        turn(1, 1);
+                        setDisabled(true);
+                        setTimeout(() => {
+                          setDisabled(false);
+                        }, "3000");
+                      }}
                     />
                     <ImageButton
                       src={pistoportal}
-                      alt="Attack Two"
-                      onClick={() => turn(1.3, 0.8)}
                       className="w-40 pisto"
+                      alt="Attack Two"
+                      disabled={disabled}
+                      onClick={() => {
+                        turn(1.4, 0.8);
+                        setDisabled(true);
+                        setTimeout(() => {
+                          setDisabled(false);
+                        }, "3000");
+                      }}
                     />
                     <ImageButton
                       src={picklerick}
-                      alt="Attack Three"
-                      onClick={() => turn(1.6, 0.6)}
                       className="w-40 pickle"
+                      alt="Attack Three"
+                      disabled={disabled}
+                      onClick={() => {
+                        turn(1.8, 0.6);
+                        setDisabled(true);
+                        setTimeout(() => {
+                          setDisabled(false);
+                        }, "3000");
+                      }}
                     />
                   </Link>
                 </div>
@@ -123,6 +146,7 @@ function Game() {
             image={enemyData.image}
             heart={enemy.life}
             power={enemy.attack}
+            defense={enemy.defense}
           />
         </>
       ) : (

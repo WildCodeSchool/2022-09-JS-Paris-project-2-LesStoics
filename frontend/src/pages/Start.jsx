@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// eslint-disable-next-line import/no-unresolved
 import { Store } from "react-notifications-component";
 import FightContext from "../context/FightUtils";
 import portal from "../assets/portal.svg";

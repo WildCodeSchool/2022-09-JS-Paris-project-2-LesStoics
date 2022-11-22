@@ -1,6 +1,6 @@
-function ImageButton({ src, alt, onClick, className }) {
+function ImageButton({ src, alt, onClick, className, disabled }) {
   return (
-    <button type="button" onClick={onClick}>
+    <button type="button" disabled={disabled} onClick={onClick}>
       <img src={src} alt={alt} className={className} />
     </button>
   );

@@ -4,8 +4,8 @@ import React from "react";
 function NotFound() {
   return (
     <div className="bg-slate-900 w-full h-full flex justify-center items-center">
-      <div className="background-img ">
-        <div className="space " />
+      <div className="background-img">
+        <div className="space" />
         <div className="wrapper">
           <div className="img-wrapper flex justify-center items-center height">
             <span>44</span>

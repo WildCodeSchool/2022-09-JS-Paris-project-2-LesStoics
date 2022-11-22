@@ -1,36 +1,36 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import CrewCard from "../components/CrewCard";
-import audrey from "../assets/crew_audrey.png";
-import victor from "../assets/crew_victor.jpg";
-import kevin from "../assets/public.gif";
-import magomed from "../assets/crew_mago.gif";
-import cedric from "../assets/snowball.png";
+import Audrey from "../assets/crew_audrey.gif";
+import Victor from "../assets/crew_victor.gif";
+import Kevin from "../assets/crew_kevin.gif";
+import Magomed from "../assets/crew_mago.gif";
+import Cedric from "../assets/crew_cedric.gif";
 
 const crewMate = [
   {
     name: "Audrey Jacquemin",
-    image: audrey,
-    description: "To infinity and beyond!",
+    image: Audrey,
+    description: "background-color: black;",
   },
   {
     name: "Victor Cenus",
-    image: victor,
-    description: "[hip hip array!]",
+    image: Victor,
+    description: "background-color: pink;",
   },
   {
     name: "Kevin Lemniai",
-    image: kevin,
-    description: "To infinity and beyond!",
+    image: Kevin,
+    description: "while(true) try",
   },
   {
     name: "magomed sadakhanov",
-    image: magomed,
-    description: "To infinity and beyond!",
+    image: Magomed,
+    description: "background: none;",
   },
   {
     name: "Cedric Cleron",
-    image: cedric,
+    image: Cedric,
     description: "while(noSucces){tryAgain(); if(Dead)break;}",
   },
 ];
@@ -46,7 +46,7 @@ function Credits() {
           <CrewCard
             key={crew.name}
             name={crew.name}
-            image={crew.image}
+            imagePath={crew.image}
             description={crew.description}
           />
         ))}
