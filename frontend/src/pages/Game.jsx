@@ -1,5 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+
 import Player from "../components/Player";
 import CharacterContext from "../context/Characters";
 import FightContext from "../context/FightUtils";
@@ -38,6 +39,7 @@ function Game() {
     });
     fetchCharacters();
   };
+
   useEffect(() => {
     if (enemy.life <= 0) {
       setWinner(playerData);
@@ -47,6 +49,13 @@ function Game() {
       navigate("/winner");
     }
   }, [player.life, enemy.life]);
+
+  const attackHandle = () => {
+    setDisabled(true);
+    setTimeout(() => {
+      setDisabled(false);
+    }, "3000");
+  };
 
   return (
     <div className="flex flex-row justify-around w-full px-10">
@@ -84,10 +93,7 @@ function Game() {
             ) : (
               <div className="flex flex-col w-full">
                 <div className="bg-green-800 border-8 border-double border-green-900 text-white h-56 mt-5 backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border">
-                  <Link
-                    to={`${enemy.life <= 0 ? "/winner" : ""}`}
-                    className="flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full"
-                  >
+                  <div className="flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full">
                     <ImageButton
                       src={snowball}
                       className="w-40 snowball"
@@ -95,10 +101,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1, 1);
-                        setDisabled(true);
-                        setTimeout(() => {
-                          setDisabled(false);
-                        }, "3000");
+                        attackHandle();
                       }}
                     />
                     <ImageButton
@@ -108,10 +111,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1.4, 0.8);
-                        setDisabled(true);
-                        setTimeout(() => {
-                          setDisabled(false);
-                        }, "3000");
+                        attackHandle();
                       }}
                     />
                     <ImageButton
@@ -121,13 +121,11 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1.8, 0.6);
-                        setDisabled(true);
-                        setTimeout(() => {
-                          setDisabled(false);
-                        }, "3000");
+                        attackHandle();
                       }}
                     />
-                  </Link>
+                  </div>
+                  <span className="loader" />
                 </div>
 
                 <div className="mt-5 bg-green-800 border-8 border-double border-green-900 text-white p-2 text-center overflow-auto list min-h-20 flex flex-col-reverse backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border ">
