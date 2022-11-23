@@ -321,8 +321,10 @@ h1,
   display: block;
   position: relative;
   height: 10px;
-  width: 100%;
-  border: 1px solid #fff;
+  bottom: 15px;
+  width: 88%;
+  margin: auto;
+  border: 1px solid #166534;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -333,8 +335,7 @@ h1,
   top: 0;
   height: 100%;
   width: 0;
-  background: #ff3d00;
-  animation: 3s prog ease-in infinite;
+  animation: 4.5s prog linear;
 }
 
 @keyframes prog {

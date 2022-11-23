@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
+import useSound from "use-sound";
+import attackSound from "../assets/attack.mp3";
+import waitSound from "../assets/wait.mp3";
+
 import Player from "../components/Player";
 import CharacterContext from "../context/Characters";
 import FightContext from "../context/FightUtils";
@@ -27,10 +31,13 @@ function Game() {
   } = useContext(FightContext);
   const [ready, setReady] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const navigate = useNavigate();
   const [snowballAtt, setSnowballAtt] = useState(false);
   const [pickleAtt, setPickleAtt] = useState(false);
   const [pistoAtt, setPistoAtt] = useState(false);
+  const [enemyAtt, setEnemyAtt] = useState(false);
+  const [playAttack] = useSound(attackSound);
+  const [playWait] = useSound(waitSound);
+  const navigate = useNavigate();
 
   const randomChar = () => {
     setPlayer({
@@ -60,7 +67,15 @@ function Game() {
     setDisabled(true);
     setTimeout(() => {
       setDisabled(false);
-    }, "3000");
+    }, "4500");
+  };
+
+  const playSound = () => {
+    if (disabled) {
+      playWait();
+    } else {
+      playAttack();
+    }
   };
 
   return (
@@ -76,14 +91,20 @@ function Game() {
           <img
             className="absolute z-10 animationclass"
             src={pistoAttack}
-            alt="Snowball Attack"
+            alt="Pistolet Attack"
             style={{ display: pistoAtt ? "block" : "none" }}
           />
           <img
             className="absolute z-10 animationclass"
             src={pickleAttack}
-            alt="Snowball Attack"
+            alt="Pickle Attack"
             style={{ display: pickleAtt ? "block" : "none" }}
+          />
+          <img
+            className="absolute z-10 animationclass rotate-180"
+            src={pickleAttack}
+            alt="Pickle Attack"
+            style={{ display: enemyAtt ? "block" : "none" }}
           />
           <Player
             player={!nickname ? "You" : nickname}
@@ -117,53 +138,77 @@ function Game() {
             ) : (
               <div className="flex flex-col w-full">
                 <div className="bg-green-800 border-8 border-double border-green-900 text-white h-56 mt-5 backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border">
-                  <div className="flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full">
-                    <ImageButton
-                      src={snowball}
-                      className="w-40 snowball"
-                      alt="Attack One"
-                      disabled={disabled}
-                      onClick={() => {
-                        turn(1, 1);
-                        disableButton();
-                        setSnowballAtt(true);
-                        setTimeout(() => {
-                          setSnowballAtt(false);
-                        }, "1500");
-                      }}
-                    />
-                    <ImageButton
-                      src={pistoportal}
-                      className="w-40 pisto"
-                      alt="Attack Two"
-                      disabled={disabled}
-                      onClick={() => {
-                        turn(1.4, 0.8);
-                        disableButton();
-                        setPistoAtt(true);
-                        setTimeout(() => {
-                          setPistoAtt(false);
-                        }, "1500");
-                      }}
-                    />
-                    <ImageButton
-                      src={picklerick}
-                      className="w-40 pickle"
-                      alt="Attack Three"
-                      disabled={disabled}
-                      onClick={() => {
-                        turn(1.8, 0.6);
-                        disableButton();
-                        setPickleAtt(true);
-                        setTimeout(() => {
-                          setPickleAtt(false);
-                        }, "1500");
-                      }}
-                    />
+                  <div className="flex flex-row items-center overflow-hidden justify-center align-center gap-3 h-full">
+                    <button
+                      type="button"
+                      className="w-full flex items-center justify-center gap-3"
+                      onClick={playSound}
+                    >
+                      <ImageButton
+                        src={snowball}
+                        className="w-40 snowball"
+                        alt="Attack One"
+                        disabled={disabled}
+                        onClick={() => {
+                          turn(1, 1);
+                          disableButton();
+                          setSnowballAtt(true);
+                          setTimeout(() => {
+                            setSnowballAtt(false);
+                          }, "1500");
+                          setTimeout(() => {
+                            setEnemyAtt(true);
+                          }, "2500");
+                          setTimeout(() => {
+                            setEnemyAtt(false);
+                          }, "4000");
+                        }}
+                      />
+                      <ImageButton
+                        src={pistoportal}
+                        className="w-40 pisto"
+                        alt="Attack Two"
+                        disabled={disabled}
+                        onClick={() => {
+                          turn(1.4, 0.8);
+                          disableButton();
+                          setPistoAtt(true);
+                          setTimeout(() => {
+                            setPistoAtt(false);
+                          }, "1500");
+                          setTimeout(() => {
+                            setEnemyAtt(true);
+                          }, "2500");
+                          setTimeout(() => {
+                            setEnemyAtt(false);
+                          }, "4000");
+                        }}
+                      />
+                      <ImageButton
+                        src={picklerick}
+                        className="w-40 pickle"
+                        alt="Attack Three"
+                        disabled={disabled}
+                        onClick={() => {
+                          turn(1.8, 0.6);
+                          disableButton();
+                          setPickleAtt(true);
+                          setTimeout(() => {
+                            setPickleAtt(false);
+                          }, "1500");
+                          setTimeout(() => {
+                            setEnemyAtt(true);
+                          }, "2500");
+                          setTimeout(() => {
+                            setEnemyAtt(false);
+                          }, "4000");
+                        }}
+                      />
+                    </button>
                   </div>
                   <span
-                    className="loader"
-                    style={{ display: !disabled && "none" }}
+                    className="loader after:bg-green-800"
+                    style={{ display: disabled ? "block" : "none" }}
                   />
                 </div>
 

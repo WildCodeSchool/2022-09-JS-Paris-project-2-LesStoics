@@ -54,13 +54,13 @@ export function FightUtils({ children }) {
       setHistory((prev) => [
         ...prev,
         `${
-          !nickname ? "You" : nickname
-        } did ${turnDamageDoneToEnemy} damage to Enemy`,
+          !nickname ? "👤🟢 You" : `👤🟢 ${nickname}`
+        } did ${turnDamageDoneToEnemy} 💥 damage to Enemy`,
       ]);
     } else
       setHistory((prev) => [
         ...prev,
-        `${!nickname ? "You" : nickname} failed to attack!`,
+        `${!nickname ? "👤❌ You" : `👤❌ ${nickname}`} failed to attack!`,
       ]);
   };
 
@@ -80,13 +80,13 @@ export function FightUtils({ children }) {
         setPlayer({ ...player, life: lifePlayerAfterEnemyAttack });
         setHistory((prev) => [
           ...prev,
-          `Enemy did ${turnDamageDoneToPlayer} damage to ${
+          `👾🔴 Enemy did ${turnDamageDoneToPlayer} 🔥 damage to ${
             !nickname ? "You" : nickname
           }`,
         ]);
-      } else setHistory((prev) => [...prev, `Enemy failed his attack!`]);
+      } else setHistory((prev) => [...prev, `👾❌ Enemy failed his attack!`]);
     };
-    if (player.life > 0) setTimeout(delayedAttack, 2000);
+    if (player.life > 0) setTimeout(delayedAttack, 2500);
   };
 
   const turn = (multiplierPlayer, chancePlayer) => {
