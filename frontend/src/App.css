@@ -86,9 +86,20 @@ h1,
   background-image: url(./assets/random-arrow_click.png);
   cursor: pointer;
 }
+
+@media only screen and (max-width: 640px) {
+  .random {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 60%;
+    margin: -50px 0 0 -50px;
+  }
+}
+
 .fight {
   width: 230px;
-  height: 90px;
+  height: 100px;
   background-repeat: no-repeat;
   border-style: none;
   background-color: transparent;
@@ -103,6 +114,15 @@ h1,
   background-color: transparent;
   background-image: url(./assets/fight_button_click.png);
   cursor: pointer;
+}
+
+@media only screen and (max-width: 640px) {
+  .fight {
+    height: 100px;
+    position: relative;
+    left: 110%;
+    margin: -50px 0 0 -50px;
+  }
 }
 
 /* PAGE WINNER  */

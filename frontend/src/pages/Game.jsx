@@ -56,7 +56,7 @@ function Game() {
   };
 
   return (
-    <div className="flex flex-row justify-around w-full px-10">
+    <div className="columns-1 sm:flex flex-row justify-around w-full px-10">
       {playerData ? (
         <>
           <Player
@@ -69,8 +69,8 @@ function Game() {
           />
           <div className="w-2/5 flex">
             {!ready ? (
-              <div className="flex flex-col justify-center items-center align-center w-full">
-                <div className="text-white mb-12 text-4xl font text-green-700">
+              <div className="grid place-items-center h-screen sm:flex flex-col sm:justify-center sm:items-center sm:align-center sm:w-full">
+                <div className="hidden sm:block sm:mb-12 sm:text-4xl font text-green-700">
                   Choose your card and go fight !!!
                 </div>
                 <div className="flex justify-center items-center">
@@ -90,10 +90,10 @@ function Game() {
               </div>
             ) : (
               <div className="flex flex-col w-full">
-                <div className="bg-green-800 border-8 border-double border-green-900 text-white h-56 mt-5 backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border">
+                <div className="bg-green-800 border-8 border-double border-green-900 text-white h-20 sm:h-56 mt-5 backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border">
                   <Link
                     to={`${enemy.life <= 0 ? "/winner" : ""}`}
-                    className="flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full"
+                    className="flex justify-center items-center h-screen flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full"
                   >
                     <ImageButton
                       src={snowball}
