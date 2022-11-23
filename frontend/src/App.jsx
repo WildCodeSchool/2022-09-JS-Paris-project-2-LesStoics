@@ -1,10 +1,12 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// eslint-disable-next-line import/no-unresolved
 import { ReactNotifications } from "react-notifications-component";
-// eslint-disable-next-line import/no-unresolved
 import "react-notifications-component/dist/theme.css";
+
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
+import rickAndMorty from "./assets/rickandmortysong.mp3";
+
 import Game from "./pages/Game";
 import Start from "./pages/Start";
 import NotFound from "./pages/NotFound";
@@ -21,6 +23,12 @@ function App() {
       <FightUtils>
         <ReactNotifications />
         <BrowserRouter>
+          <AudioPlayer
+            autoPlay
+            loop
+            src={rickAndMorty}
+            style={{ display: "none" }}
+          />
           <Routes>
             <Route path="/" element={<Start />} />
             <Route path="*" element={<NotFound />} />
