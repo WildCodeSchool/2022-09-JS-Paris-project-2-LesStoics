@@ -50,7 +50,7 @@ function Game() {
     }
   }, [player.life, enemy.life]);
 
-  const attackHandle = () => {
+  const disableButton = () => {
     setDisabled(true);
     setTimeout(() => {
       setDisabled(false);
@@ -101,7 +101,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1, 1);
-                        attackHandle();
+                        disableButton();
                       }}
                     />
                     <ImageButton
@@ -111,7 +111,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1.4, 0.8);
-                        attackHandle();
+                        disableButton();
                       }}
                     />
                     <ImageButton
@@ -121,7 +121,7 @@ function Game() {
                       disabled={disabled}
                       onClick={() => {
                         turn(1.8, 0.6);
-                        attackHandle();
+                        disableButton();
                       }}
                     />
                   </div>
