@@ -125,7 +125,10 @@ function Game() {
                       }}
                     />
                   </div>
-                  <span className="loader" />
+                  <span
+                    className="loader after:bg-green-800"
+                    style={{ display: disabled ? "block" : "none" }}
+                  />
                 </div>
 
                 <div className="mt-5 bg-green-800 border-8 border-double border-green-900 text-white p-2 text-center overflow-auto list min-h-20 flex flex-col-reverse backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border ">
