@@ -8,6 +8,9 @@ import ImageButton from "../components/ImageButton";
 import picklerick from "../assets/picklerick.png";
 import snowball from "../assets/snowball.png";
 import pistoportal from "../assets/pistoportal.png";
+import snowballAttack from "../assets/snowball_attack.gif";
+import pistoAttack from "../assets/pisto_attack.gif";
+import pickleAttack from "../assets/picklerick_attack.gif";
 
 function Game() {
   const { playerData, enemyData, fetchCharacters, setWinner } =
@@ -25,6 +28,9 @@ function Game() {
   const [ready, setReady] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
+  const [snowballAtt, setSnowballAtt] = useState(false);
+  const [pickleAtt, setPickleAtt] = useState(false);
+  const [pistoAtt, setPistoAtt] = useState(false);
 
   const randomChar = () => {
     setPlayer({
@@ -61,6 +67,24 @@ function Game() {
     <div className="flex flex-row justify-around w-full px-10">
       {playerData ? (
         <>
+          <img
+            className="absolute z-10 animationclass"
+            src={snowballAttack}
+            alt="Snowball Attack"
+            style={{ display: snowballAtt ? "block" : "none" }}
+          />
+          <img
+            className="absolute z-10 animationclass"
+            src={pistoAttack}
+            alt="Snowball Attack"
+            style={{ display: pistoAtt ? "block" : "none" }}
+          />
+          <img
+            className="absolute z-10 animationclass"
+            src={pickleAttack}
+            alt="Snowball Attack"
+            style={{ display: pickleAtt ? "block" : "none" }}
+          />
           <Player
             player={!nickname ? "You" : nickname}
             name={playerData.name}
@@ -102,6 +126,10 @@ function Game() {
                       onClick={() => {
                         turn(1, 1);
                         disableButton();
+                        setSnowballAtt(true);
+                        setTimeout(() => {
+                          setSnowballAtt(false);
+                        }, "1500");
                       }}
                     />
                     <ImageButton
@@ -112,6 +140,10 @@ function Game() {
                       onClick={() => {
                         turn(1.4, 0.8);
                         disableButton();
+                        setPistoAtt(true);
+                        setTimeout(() => {
+                          setPistoAtt(false);
+                        }, "1500");
                       }}
                     />
                     <ImageButton
@@ -122,10 +154,17 @@ function Game() {
                       onClick={() => {
                         turn(1.8, 0.6);
                         disableButton();
+                        setPickleAtt(true);
+                        setTimeout(() => {
+                          setPickleAtt(false);
+                        }, "1500");
                       }}
                     />
                   </div>
-                  <span className="loader" />
+                  <span
+                    className="loader"
+                    style={{ display: !disabled && "none" }}
+                  />
                 </div>
 
                 <div className="mt-5 bg-green-800 border-8 border-double border-green-900 text-white p-2 text-center overflow-auto list min-h-20 flex flex-col-reverse backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border ">

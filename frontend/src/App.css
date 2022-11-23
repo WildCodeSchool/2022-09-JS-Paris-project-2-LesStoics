@@ -312,6 +312,11 @@ h1,
   }
 }
 
+.animationclass {
+  object-fit: cover;
+  width: 100%;
+  height: 100vh;
+}
 .loader {
   display: block;
   position: relative;
@@ -329,7 +334,7 @@ h1,
   height: 100%;
   width: 0;
   background: #ff3d00;
-  animation: 6s prog ease-in infinite;
+  animation: 3s prog ease-in infinite;
 }
 
 @keyframes prog {
