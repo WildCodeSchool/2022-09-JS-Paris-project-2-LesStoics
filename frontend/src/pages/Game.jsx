@@ -93,7 +93,7 @@ function Game() {
                 <div className="bg-green-800 border-8 border-double border-green-900 text-white h-20 sm:h-56 mt-5 backdrop-filter backdrop-blur-3xl backdrop-saturate-150 bg-black bg-opacity-40 rounded-lg border">
                   <Link
                     to={`${enemy.life <= 0 ? "/winner" : ""}`}
-                    className="flex justify-center items-center h-screen flex flex-row items-center overflow-hidden	justify-center align-center gap-3 h-full"
+                    className="h-screen flex flex-row overflow-hidden	justify-center align-center gap-3 h-full"
                   >
                     <ImageButton
                       src={snowball}
